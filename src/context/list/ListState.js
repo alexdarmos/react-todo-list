@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import listContext from './listContext';
 import listReducer from './listReducer';
-import { GET_TODOS } from '../types';
+import { GET_TODOS, ADD_TODO } from '../types';
 
 const ListState = props => {
 	const initialState = {
@@ -34,7 +34,14 @@ const ListState = props => {
 		});
 	};
 
-	//Add ToDo
+	//Add Todo
+	const addTodo = todo => {
+		dispatch({
+			type: ADD_TODO,
+			payload: todo
+		});
+	};
+
 	//Update ToDo
 	//Delete Todo
 
@@ -42,7 +49,8 @@ const ListState = props => {
 		<listContext.Provider
 			value={{
 				todos: state.todos,
-				getTodos
+				getTodos,
+				addTodo
 			}}
 		>
 			{props.children}
