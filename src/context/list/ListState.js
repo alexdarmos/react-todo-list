@@ -1,7 +1,8 @@
 import React, { useReducer } from 'react';
+import uuid from 'uuid';
 import listContext from './listContext';
 import listReducer from './listReducer';
-import { GET_TODOS, ADD_TODO } from '../types';
+import { GET_TODOS, ADD_TODO, DELETE_TODO } from '../types';
 
 const ListState = props => {
 	const initialState = {
@@ -36,6 +37,8 @@ const ListState = props => {
 
 	//Add Todo
 	const addTodo = todo => {
+		todo.id = uuid.v4();
+		todo.completed = false;
 		dispatch({
 			type: ADD_TODO,
 			payload: todo
@@ -43,14 +46,23 @@ const ListState = props => {
 	};
 
 	//Update ToDo
+
 	//Delete Todo
+	const deleteTodo = id => {
+		dispatch({
+			type: DELETE_TODO,
+			payload: id
+		});
+		console.log(id);
+	};
 
 	return (
 		<listContext.Provider
 			value={{
 				todos: state.todos,
 				getTodos,
-				addTodo
+				addTodo,
+				deleteTodo
 			}}
 		>
 			{props.children}
