@@ -4,9 +4,7 @@ import ListContext from '../../context/list/listContext';
 
 const TodoItem = ({ todo: { task, completed, id } }) => {
 	const listContext = useContext(ListContext);
-	const { deleteTodo } = listContext;
-
-	// const { task, completed } = todo;
+	const { deleteTodo, completeTodo } = listContext;
 
 	//delete todo
 	const onDelete = () => {
@@ -14,7 +12,9 @@ const TodoItem = ({ todo: { task, completed, id } }) => {
 	};
 
 	//complete todo
-	const onComplete = () => {};
+	const onComplete = () => {
+		completeTodo(id);
+	};
 
 	//update todo
 
@@ -24,6 +24,7 @@ const TodoItem = ({ todo: { task, completed, id } }) => {
 				<li>{task}</li>
 				<li>{completed === true ? '[X]' : '[]'}</li>
 				<button onClick={onDelete}>Remove</button>
+				<button onClick={onComplete}>Complete</button>
 			</ul>
 		</div>
 	);

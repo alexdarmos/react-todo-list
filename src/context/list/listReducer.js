@@ -1,4 +1,4 @@
-import { GET_TODOS, ADD_TODO, DELETE_TODO } from '../types';
+import { GET_TODOS, ADD_TODO, DELETE_TODO, COMPLETE_TODO } from '../types';
 
 export default (state, action) => {
 	switch (action.type) {
@@ -18,6 +18,16 @@ export default (state, action) => {
 			return {
 				...state,
 				todos: state.todos.filter(todo => todo.id !== action.payload)
+			};
+
+		case COMPLETE_TODO:
+			return {
+				// ...state,
+				// todos: state.todos.map(todo => {
+				// 	if (todo.id === action.payload.id) {
+				// 		action.payload.completed = true;
+				// 	}
+				// })
 			};
 
 		default:
