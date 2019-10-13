@@ -28,7 +28,7 @@ const ListState = props => {
 	const [state, dispatch] = useReducer(listReducer, initialState);
 
 	//Get Todos
-	const getTodos = async () => {
+	const getTodos = () => {
 		dispatch({
 			type: GET_TODOS,
 			payload: initialState.todos
