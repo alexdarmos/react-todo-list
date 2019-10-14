@@ -2,10 +2,19 @@ import React, { useReducer } from 'react';
 import uuid from 'uuid';
 import listContext from './listContext';
 import listReducer from './listReducer';
-import { GET_TODOS, ADD_TODO, DELETE_TODO, COMPLETE_TODO } from '../types';
+import {
+	GET_TODOS,
+	ADD_TODO,
+	DELETE_TODO,
+	COMPLETE_TODO,
+	EDIT_TODO,
+	SET_CURRENT,
+	CLEAR_CURRENT
+} from '../types';
 
 const ListState = props => {
 	const initialState = {
+		current: null,
 		todos: [
 			{
 				id: 1,
@@ -46,6 +55,24 @@ const ListState = props => {
 	};
 
 	//Update ToDo
+	const editTodo = contact => {
+		dispatch({
+			type: EDIT_TODO,
+			payload: contact
+		});
+	};
+
+	//set current contact in form
+	const setCurrent = contact => {
+		dispatch({
+			type: SET_CURRENT,
+			payload: contact
+		});
+	};
+
+	const clearCurrent = () => {
+		dispatch({ type: CLEAR_CURRENT });
+	};
 
 	//Delete Todo
 	const deleteTodo = id => {
@@ -62,16 +89,21 @@ const ListState = props => {
 			type: COMPLETE_TODO,
 			payload: id
 		});
+		console.log(id);
 	};
 
 	return (
 		<listContext.Provider
 			value={{
 				todos: state.todos,
+				current: state.current,
 				getTodos,
 				addTodo,
 				deleteTodo,
-				completeTodo
+				completeTodo,
+				editTodo,
+				setCurrent,
+				clearCurrent
 			}}
 		>
 			{props.children}

@@ -2,9 +2,11 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import ListContext from '../../context/list/listContext';
 
-const TodoItem = ({ todo: { task, completed, id } }) => {
+const TodoItem = ({ todo }) => {
+	const { task, completed, id } = todo;
+
 	const listContext = useContext(ListContext);
-	const { deleteTodo, completeTodo } = listContext;
+	const { deleteTodo, completeTodo, setCurrent } = listContext;
 
 	//delete todo
 	const onDelete = () => {
@@ -16,15 +18,26 @@ const TodoItem = ({ todo: { task, completed, id } }) => {
 		completeTodo(id);
 	};
 
-	//update todo
-
 	return (
 		<div>
 			<ul>
 				<li>{task}</li>
 				<li>{completed === true ? '[X]' : '[]'}</li>
-				<button onClick={onDelete}>Remove</button>
-				<button onClick={onComplete}>Complete</button>
+				<li>
+					<button onClick={onDelete}>Remove</button>
+				</li>
+				<li>
+					<input
+						type="checkbox"
+						checked={completed === true ? 'checked' : ''}
+						onChange={onComplete}
+					/>
+				</li>
+				<li>
+					{/* setCurrent is called from state, 
+					passes the selected todo object */}
+					<button onClick={() => setCurrent(todo)}>Edit</button>
+				</li>
 			</ul>
 		</div>
 	);

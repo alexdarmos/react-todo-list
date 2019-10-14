@@ -4,13 +4,24 @@ import ListContext from '../../context/list/listContext';
 const TodoForm = () => {
 	const listContext = useContext(ListContext);
 
-	const { addTodo } = listContext;
+	const { addTodo, editTodo, clearCurrent, current } = listContext;
 
 	const [todo, setTodo] = useState({
 		task: ''
 	});
 
 	const { task } = todo;
+
+	//side-effect: checks if current object is set, if current exists, set input value to current
+	useEffect(() => {
+		if (current !== null) {
+			setTodo(current);
+		} else {
+			setTodo({
+				task: ''
+			});
+		}
+	}, [current]);
 
 	//set value of input
 	const onChange = e => {
@@ -20,8 +31,14 @@ const TodoForm = () => {
 	//Add todo to list
 	const onSubmit = e => {
 		e.preventDefault();
-		console.log(todo);
-		addTodo(todo);
+
+		//check if current exts, if it does not, if it doesn't, use the addTodo function, if it does exist, edit was selected, so use editTodo function
+		if (current === null) {
+			addTodo(todo);
+		} else {
+			editTodo(todo);
+			clearCurrent();
+		}
 	};
 
 	return (
