@@ -8,7 +8,7 @@ import './App.css';
 function App() {
 	return (
 		<ListState>
-			<div>
+			<div className="app-container">
 				<TodoList />
 				<TodoForm />
 			</div>

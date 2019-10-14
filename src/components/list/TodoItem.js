@@ -6,7 +6,7 @@ const TodoItem = ({ todo }) => {
 	const { task, completed, id } = todo;
 
 	const listContext = useContext(ListContext);
-	const { deleteTodo, completeTodo, setCurrent } = listContext;
+	const { deleteTodo, completeTodo, setCurrent, current } = listContext;
 
 	//delete todo
 	const onDelete = () => {
@@ -19,25 +19,38 @@ const TodoItem = ({ todo }) => {
 	};
 
 	return (
-		<div>
-			<ul>
-				<li>{task}</li>
-				<li>{completed === true ? '[X]' : '[]'}</li>
-				<li>
-					<button onClick={onDelete}>Remove</button>
-				</li>
-				<li>
-					<input
-						type="checkbox"
-						checked={completed === true ? 'checked' : ''}
-						onChange={onComplete}
-					/>
-				</li>
-				<li>
-					{/* setCurrent is called from state, 
+		<div style={{ margin: '0px 100px 0px 0px' }}>
+			<ul
+				className={
+					completed === true ? 'todo-item complete' : 'todo-item incomplete'
+				}
+			>
+				<div className="title-container">
+					<li>{task}</li>
+				</div>
+
+				<div className="todo-sub-container">
+					<li>
+						<label className="container">
+							<input
+								type="checkbox"
+								checked={completed === true ? 'checked' : ''}
+								onChange={onComplete}
+							/>
+							<span className="checkmark"></span>
+						</label>
+					</li>
+					<li>
+						<i className="fas fa-archive" onClick={onDelete}></i>
+						{/* <button onClick={onDelete}>Remove</button> */}
+					</li>
+					<li>
+						{/* setCurrent is called from state, 
 					passes the selected todo object */}
-					<button onClick={() => setCurrent(todo)}>Edit</button>
-				</li>
+						<i className="fas fa-edit" onClick={() => setCurrent(todo)}></i>
+						{/* <button onClick={() => setCurrent(todo)}>Edit</button> */}
+					</li>
+				</div>
 			</ul>
 		</div>
 	);

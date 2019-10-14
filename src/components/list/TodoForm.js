@@ -35,14 +35,18 @@ const TodoForm = () => {
 		//check if current exts, if it does not, if it doesn't, use the addTodo function, if it does exist, edit was selected, so use editTodo function
 		if (current === null) {
 			addTodo(todo);
+			setTodo({
+				task: ''
+			});
 		} else {
 			editTodo(todo);
-			clearCurrent();
 		}
+
+		clearCurrent();
 	};
 
 	return (
-		<form onSubmit={onSubmit}>
+		<form className="todo-form" onSubmit={onSubmit}>
 			<input
 				type="text"
 				placeholder="todo..."
@@ -51,7 +55,7 @@ const TodoForm = () => {
 				onChange={onChange}
 			/>
 
-			<input type="submit" value="Add" />
+			<input type="submit" value={current !== null ? 'Update' : 'Add'} />
 		</form>
 	);
 };
